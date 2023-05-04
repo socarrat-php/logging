@@ -1,0 +1,17 @@
+{
+	"name": "socarrat/logging",
+	"description": "Socarrat logging handles logging to various places.",
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Socarrat\\Logging\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Romein van Buren",
+			"email": "romein@vburen.nl"
+		}
+	]
+}
