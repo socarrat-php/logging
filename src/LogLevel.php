@@ -27,4 +27,15 @@ enum LogLevel: int {
 
 	/** Debug: debug-level messages */
 	case LOG_DEBUG = 7;
+
+	function toString(): string {
+		return match($this) {
+			LogLevel::LOG_CRITICAL => "CRITICAL",
+			LogLevel::LOG_ERROR => "ERROR",
+			LogLevel::LOG_WARNING => "WARNING",
+			LogLevel::LOG_NOTICE => "NOTICE",
+			LogLevel::LOG_INFO => "INFO",
+			LogLevel::LOG_DEBUG => "DEBUG",
+		};
+	}
 }
