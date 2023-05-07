@@ -11,6 +11,10 @@ Robust logging library for every application.
 - [x] [Static methods](#static-public-function-logloglevel-level-string-message): call the logger from whichever part of your application without needing to have a reference to some logging object!
 - [x] [Minimum log levels](#static-public-function-setminimumloglevelloglevel-level).
 
+## Installation
+
+You can install this library through Packagist: [`composer require socarrat/logging`](https://packagist.org/packages/socarrat/logging).
+
 ## Examples
 
 ```php
