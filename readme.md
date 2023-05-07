@@ -94,3 +94,9 @@ Contains the [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424) log level
 | `LOG_DEBUG`     | Debug-level messages.                      | `7` |
 
 `LogLevel::toString()` will return the stringified version of the log level, e.g. calling `(LogLevel::LOG_ALERT)->toString()` will result in `ALERT`.
+
+## Copyright
+
+(c) 2023 Romein van Buren. Licensed under the MIT license.
+
+For the full copyright and license information, please view the [`license.md`](./license.md) file that was distributed with this source code.
