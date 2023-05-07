@@ -24,4 +24,17 @@ enum LogLevel: int {
 			LogLevel::LOG_DEBUG => "DEBUG",
 		};
 	}
+
+	function toInt(): int {
+		return match($this) {
+			LogLevel::LOG_EMERGENCY => 0,
+			LogLevel::LOG_ALERT => 1,
+			LogLevel::LOG_CRITICAL => 2,
+			LogLevel::LOG_ERROR => 3,
+			LogLevel::LOG_WARNING => 4,
+			LogLevel::LOG_NOTICE => 5,
+			LogLevel::LOG_INFO => 6,
+			LogLevel::LOG_DEBUG => 7,
+		};
+	}
 }

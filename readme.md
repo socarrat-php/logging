@@ -9,6 +9,7 @@ Robust logging library for every application.
 - [x] You can [write your own logger implementation](#abstract-class-socarratlogginglogger) if you need something custom.
 - [x] Multiple output streams.
 - [x] [Static methods](#static-public-function-logloglevel-level-string-message): call the logger from whichever part of your application without needing to have a reference to some logging object!
+- [x] [Minimum log levels](#static-public-function-setminimumloglevelloglevel-level).
 
 ## Examples
 
@@ -25,9 +26,16 @@ $fileLogger = new FileLogger(
 );
 
 LoggingManager::addLogger($fileLogger);
+LoggingManager::setMinimumLogLevel(LogLevel::LOG_WARNING);
 
 LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL"); //=> logs to test.critical.log
-LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");       //=> logs to test.debug.log
+LoggingManager::log(LogLevel::LOG_ERROR, "Hello ERROR");       //=> logs to test.debug.log
+LoggingManager::log(LogLevel::LOG_WARNING, "Hello WARNING");   //=> logs to test.warning.log
+
+LoggingManager::log(LogLevel::LOG_NOTICE, "Hello NOTICE");     //=> will not be logged due to minimum log level log
+LoggingManager::log(LogLevel::LOG_INFO, "Hello INFO");         //=> will not be logged
+LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");       //=> will not be logged
+
 ```
 
 You can find the output of this script [here](./examples/filelogger/). See more examples in the [`examples/`](./examples/) directory.
@@ -68,10 +76,20 @@ Adds a [logger](#abstract-class-socarratlogginglogger) instance to use. Returns 
 
 Logs the given message at the given log level using [the logger that has been set](#static-public-function-addloggerlogger-logger-int). If multiple loggers have been set, each of them is called.
 
-| Parameter name | Type       | Default value | Description                 |
-|----------------|------------|---------------|-----------------------------|
-| `$level`       | `LogLevel` | -             | The level at which to log.  |
-| `$message`     | `string`   | -             | The log message.            |
+| Parameter name | Type       | Default value | Description                |
+|----------------|------------|---------------|----------------------------|
+| `$level`       | `LogLevel` | -             | The level at which to log. |
+| `$message`     | `string`   | -             | The log message.           |
+
+#### `static public function setMinimumLogLevel(LogLevel $level)`
+
+Sets the minimum [log level](#enum-socarratloggingloglevel-int). Log messages that have a lower level will not be logged.
+
+Example: the minimum log level is `LOG_NOTICE`. Logs with `LOG_DEBUG` will not be logged, unlike `LOG_ERROR` logs.
+
+| Parameter name | Type       | Default value | Description                        |
+|----------------|------------|---------------|------------------------------------|
+| `$level`       | `LogLevel` | -             | The minimum level at which to log. |
 
 ### `abstract class Socarrat\Logging\Logger`
 
@@ -81,10 +99,10 @@ This is the base class for loggers. All loggers should extend it.
 
 Logs the given message at the given log level. You should not call this directly, use [`LogManager::log`](#static-public-function-logloglevel-level-string-message) instead.
 
-| Parameter name | Type       | Default value | Description                 |
-|----------------|------------|---------------|-----------------------------|
-| `$level`       | `LogLevel` | -             | The level at which to log.  |
-| `$message`     | `string`   | -             | The log message.            |
+| Parameter name | Type       | Default value | Description                |
+|----------------|------------|---------------|----------------------------|
+| `$level`       | `LogLevel` | -             | The level at which to log. |
+| `$message`     | `string`   | -             | The log message.           |
 
 ### `enum Socarrat\Logging\LogLevel: int`
 
