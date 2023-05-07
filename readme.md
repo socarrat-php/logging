@@ -19,10 +19,6 @@ $fileLogger = new FileLogger(
 LoggingManager::setLogger($fileLogger);
 
 LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL"); //=> logs to test.critical.log
-LoggingManager::log(LogLevel::LOG_ERROR, "Hello ERROR");       //=> logs to test.error.log
-LoggingManager::log(LogLevel::LOG_WARNING, "Hello WARNING");   //=> logs to test.warning.log
-LoggingManager::log(LogLevel::LOG_NOTICE, "Hello NOTICE");     //=> logs to test.notice.log
-LoggingManager::log(LogLevel::LOG_INFO, "Hello INFO");         //=> logs to test.info.log
 LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");       //=> logs to test.debug.log
 ```
 
@@ -86,11 +82,15 @@ Logs the given message at the given log level. You should not call this directly
 
 Contains the [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424) log levels, except Alert and Emergency. Those are left out for the sake of simplicity.
 
-| Log level      | Situation                                  | ID  |
-|----------------|--------------------------------------------|:---:|
-| `LOG_CRITICAL` | Critical conditions.                       | `2` |
-| `LOG_ERROR`    | Error conditions.                          | `3` |
-| `LOG_WARNING`  | Warning conditions.                        | `4` |
-| `LOG_NOTICE`   | Notice: normal but significant conditions. | `5` |
-| `LOG_INFO`     | Informational messages.                    | `6` |
-| `LOG_DEBUG`    | Debug-level messages.                      | `7` |
+| Log level       | Situation                                  | ID  |
+|-----------------|--------------------------------------------|:---:|
+| `LOG_EMERGENCY` | System is unusable.                        | `2` |
+| `LOG_ALERT`     | Action must be taken immediately.          | `2` |
+| `LOG_CRITICAL`  | Critical conditions.                       | `2` |
+| `LOG_ERROR`     | Error conditions.                          | `3` |
+| `LOG_WARNING`   | Warning conditions.                        | `4` |
+| `LOG_NOTICE`    | Notice: normal but significant conditions. | `5` |
+| `LOG_INFO`      | Informational messages.                    | `6` |
+| `LOG_DEBUG`     | Debug-level messages.                      | `7` |
+
+`LogLevel::toString()` will return the stringified version of the log level, e.g. calling `(LogLevel::LOG_ALERT)->toString()` will result in `ALERT`.
