@@ -16,7 +16,7 @@ $fileLogger = new FileLogger(
 	}
 );
 
-LoggingManager::setLogger($fileLogger);
+LoggingManager::addLogger($fileLogger);
 
 LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL"); //=> logs to test.critical.log
 LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");       //=> logs to test.debug.log
@@ -26,7 +26,7 @@ You can find the output of this script [here](./examples/filelogger/). See more 
 
 ## Built-in loggers
 
-The following loggers are shipped with this library under the namespace `Socarrat\Logging\Loggers`. You could also implement your own loggers; see the [`Logger` interface](#abstract-class-socarratlogginglogger) and [`LoggingManager::setLogger`](#static-public-function-setloggerlogger-logger).
+The following loggers are shipped with this library under the namespace `Socarrat\Logging\Loggers`. You could also implement your own loggers; see the [`Logger` interface](#abstract-class-socarratlogginglogger) and [`LoggingManager::addLogger`](#static-public-function-addloggerlogger-logger-int).
 
 ### `FileLogger`
 
@@ -48,17 +48,17 @@ This logger does nothing with the logs.
 
 This is the central logging manager; you should use this to log things.
 
-#### `static public function setLogger(Logger $logger)`
+#### `static public function addLogger(Logger $logger): int`
 
-Sets the [logger](#abstract-class-socarratlogginglogger) instance to use. The default is [NullLogger](#nulllogger).
+Adds a [logger](#abstract-class-socarratlogginglogger) instance to use. Returns the index which has been assigned to the logger. If multiple loggers have been set, each of them is called.
 
 | Parameter name | Type     | Default value | Description                 |
 |----------------|----------|---------------|-----------------------------|
-| `$logger`      | `Logger` | -             | The logger instance to use. |
+| `$logger`      | `Logger` | -             | The logger instance to add. |
 
 #### `static public function log(LogLevel $level, string $message)`
 
-Logs the given message at the given log level using [the logger that has been set](#static-public-function-setloggerlogger-logger).
+Logs the given message at the given log level using [the logger that has been set](#static-public-function-addloggerlogger-logger-int). If multiple loggers have been set, each of them is called.
 
 | Parameter name | Type       | Default value | Description                 |
 |----------------|------------|---------------|-----------------------------|

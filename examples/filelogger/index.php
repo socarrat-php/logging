@@ -10,7 +10,7 @@ $fileLogger = new FileLogger(getFilePath: function(LogLevel $level, string $msg)
 	return __DIR__."/test.$l.log";
 });
 
-LoggingManager::setLogger($fileLogger);
+LoggingManager::addLogger($fileLogger);
 
 LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL");
 LoggingManager::log(LogLevel::LOG_ERROR, "Hello ERROR");
