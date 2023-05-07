@@ -2,6 +2,14 @@
 
 Robust logging library for every application.
 
+## Features
+
+- [x] Simple yet reliable logging.
+- [x] Supports every type of output you like.
+- [x] You can [write your own logger implementation](#abstract-class-socarratlogginglogger) if you need something custom.
+- [x] Multiple output streams.
+- [x] [Static methods](#static-public-function-logloglevel-level-string-message): call the logger from whichever part of your application without needing to have a reference to some logging object!
+
 ## Examples
 
 ```php
