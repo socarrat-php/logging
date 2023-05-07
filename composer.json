@@ -1,6 +1,6 @@
 {
 	"name": "socarrat/logging",
-	"description": "Robust logging for every application.",
+	"description": "Robust logging library for every application.",
 	"type": "library",
 	"license": "MIT",
 	"autoload": {

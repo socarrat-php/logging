@@ -1,6 +1,6 @@
 # Socarrat\Logging
 
-Robust logging for every application.
+Robust logging library for every application.
 
 ## Examples
 
