@@ -5,7 +5,11 @@ use Socarrat\Logging\Loggers\FileLogger;
 use Socarrat\Logging\LoggingManager;
 use Socarrat\Logging\LogLevel;
 
-$fileLogger = new FileLogger(__DIR__."/logfile.log");
+$fileLogger = new FileLogger(getFilePath: function(LogLevel $level, string $msg) {
+	$l = strtolower($level->toString());
+	return __DIR__."/test.$l.log";
+});
+
 LoggingManager::setLogger($fileLogger);
 
 LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL");

@@ -5,14 +5,14 @@ use Socarrat\Logging\Logger;
 use Socarrat\Logging\LogLevel;
 
 class FileLogger extends Logger {
-	private string $filepath;
+	private \Closure $getFilePath;
 
-	function __construct(string $filepath) {
-		$this->filepath = $filepath;
+	function __construct(\Closure $getFilePath) {
+		$this->getFilePath = $getFilePath;
 	}
 
-	public function setFilepath(string $filepath) {
-		$this->filepath = $filepath;
+	public function setFilePathGetter(\Closure $getFilePath) {
+		$this->getFilePath = $getFilePath;
 	}
 
 	public function log(LogLevel $level, string $message) {
@@ -21,7 +21,7 @@ class FileLogger extends Logger {
 		$levelCode = $level->toString();
 
 		file_put_contents(
-			$this->filepath,
+			($this->getFilePath)($level, $message),
 			"[$date] [$levelCode] $message\n",
 			FILE_APPEND
 		);

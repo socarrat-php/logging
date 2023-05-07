@@ -9,18 +9,24 @@ use Socarrat\Logging\Loggers\FileLogger;
 use Socarrat\Logging\LoggingManager;
 use Socarrat\Logging\LogLevel;
 
-$fileLogger = new FileLogger(__DIR__."/logfile.log");
+$fileLogger = new FileLogger(
+	getFilePath: function(LogLevel $level, string $msg) {
+		$l = strtolower($level->toString());
+		return __DIR__."/test.$l.log";
+	}
+);
+
 LoggingManager::setLogger($fileLogger);
 
-LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL");
-LoggingManager::log(LogLevel::LOG_ERROR, "Hello ERROR");
-LoggingManager::log(LogLevel::LOG_WARNING, "Hello WARNING");
-LoggingManager::log(LogLevel::LOG_NOTICE, "Hello NOTICE");
-LoggingManager::log(LogLevel::LOG_INFO, "Hello INFO");
-LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");
+LoggingManager::log(LogLevel::LOG_CRITICAL, "Hello CRITICAL"); //=> logs to test.critical.log
+LoggingManager::log(LogLevel::LOG_ERROR, "Hello ERROR");       //=> logs to test.error.log
+LoggingManager::log(LogLevel::LOG_WARNING, "Hello WARNING");   //=> logs to test.warning.log
+LoggingManager::log(LogLevel::LOG_NOTICE, "Hello NOTICE");     //=> logs to test.notice.log
+LoggingManager::log(LogLevel::LOG_INFO, "Hello INFO");         //=> logs to test.info.log
+LoggingManager::log(LogLevel::LOG_DEBUG, "Hello DEBUG");       //=> logs to test.debug.log
 ```
 
-See more examples in the [`examples/`](./examples/) directory.
+You can find the output of this script [here](./examples/filelogger/). See more examples in the [`examples/`](./examples/) directory.
 
 ## Built-in loggers
 
@@ -28,7 +34,13 @@ The following loggers are shipped with this library under the namespace `Socarra
 
 ### `FileLogger`
 
-Outputs logs into a file. Pass a file path to the constructor, or set it later on using `FileLogger::setFilepath`.
+Outputs logs into a file.
+
+#### `new FileLogger(\Closure $getFilePath)`
+
+Constructs a new file logger. You can pass a closure into the constructor, which is called on each log and returns the filename the log should be sent to. It receives two positional arguments: the [`LogLevel`](#enum-socarratloggingloglevel-int) and the string to log.
+
+You can replace the filepath getter later on by calling `FileLogger::setFilePathGetter(\Closure $getFilePath)`.
 
 ### `NullLogger`
 
