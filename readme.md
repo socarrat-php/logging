@@ -80,7 +80,7 @@ Logs the given message at the given log level. You should not call this directly
 
 ### `enum Socarrat\Logging\LogLevel: int`
 
-Contains the [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424) log levels, except Alert and Emergency. Those are left out for the sake of simplicity.
+Contains the [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424) log levels.
 
 | Log level       | Situation                                  | ID  |
 |-----------------|--------------------------------------------|:---:|
